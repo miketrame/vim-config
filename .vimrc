@@ -156,4 +156,8 @@ map Y y$
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
 
+
+" pathogen.vim
+" see github for install on other machines
+execute pathogen#infect()
 "------------------------------------------------------------
