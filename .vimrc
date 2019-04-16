@@ -162,6 +162,13 @@ imap <Tab> <C-p>
 execute pathogen#infect()
 "------------------------------------------------------------
 
+" Should install vim-plug if not already installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -196,6 +203,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
+
+" Pywal colorscheme
+Plug 'dylanaraps/wal.vim'
+
+colorscheme wal
 
 " Initialize plugin system
 
