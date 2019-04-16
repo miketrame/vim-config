@@ -204,10 +204,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
-" Pywal colorscheme
-Plug 'dylanaraps/wal.vim'
+" TODO: Pywal colorscheme for i3 (actually might work elsewhere)
+"Plug 'dylanaraps/wal.vim'
 
-colorscheme wal
+"colorscheme wal
 
 " Initialize plugin system
 
