@@ -1,0 +1,3 @@
+Run ./pathogen_install.h to install packages
+
+Read TODOs in .vimrc and uncomment packages as you please
