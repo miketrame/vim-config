@@ -16,7 +16,7 @@ filetype indent plugin on
 " Enable syntax highlighting
 syntax on
 
-
+set noswapfile
 "------------------------------------------------------------
 " Must have options {{{1
 "
@@ -57,6 +57,7 @@ set hlsearch
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
 " set nomodeline
 
+" set cc=80
 
 "------------------------------------------------------------
 " Usability options {{{1
@@ -110,6 +111,7 @@ set cmdheight=2
 
 " Display line numbers on the left
 set number
+set relativenumber
 
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
@@ -117,7 +119,6 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
 
-set relativenumber
 
 "------------------------------------------------------------
 " Indentation options {{{1
@@ -198,8 +199,8 @@ Plug '~/my-prototype-plugin'
 " Initialize plugin system
 
 " Start up NERDTree when no file is specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " html completion, fuck 485 rn (9/15/19)
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -213,9 +214,15 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
+let NERDTreeRemoveFileCmd = 1
+let NERDTreeRemoveDirCmd = 1
+
 
 "folding settings
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
+
+"\begin{} \end{} autocomplete
+noremap \b cw\begin{<C-R>"}<CR>\end{<C-R>"}
