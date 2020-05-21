@@ -154,7 +154,7 @@ imap <Tab> <C-p>
 
 " pathogen.vim
 " see github for install on other machines
-execute pathogen#infect()
+" execute pathogen#infect()
 "------------------------------------------------------------
 
 " Specify a directory for plugins
@@ -163,8 +163,6 @@ execute pathogen#infect()
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-
-Plug 'xolox/vim-notes'
 
 Plug 'junegunn/goyo.vim'
 
@@ -179,22 +177,25 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'vim-syntastic/syntastic'
 
-" Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+Plug 'vim-airline/vim-airline'
 
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'pangloss/vim-javascript'
 
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
+Plug 'vim-latex/vim-latex'
+
+Plug 'xolox/vim-misc'
+
+Plug 'junegunn/vim-xmark'
+
+Plug 'vimwiki/vimwiki'
+
+call plug#end()
 
 " Initialize plugin system
 
@@ -206,17 +207,16 @@ Plug '~/my-prototype-plugin'
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 " Syntastic reccomended settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let NERDTreeRemoveFileCmd = 1
 let NERDTreeRemoveDirCmd = 1
-
 
 "folding settings
 set foldmethod=indent   "fold based on indent
@@ -226,3 +226,26 @@ set foldlevel=1         "this is just what i use
 
 "\begin{} \end{} autocomplete
 noremap \b cw\begin{<C-R>"}<CR>\end{<C-R>"}
+
+" Vimtex {{{
+let g:vimtex_view_method = 'general'
+let g:vimtex_view_general_callback = 'TermPDF'
+let g:vimtex_view_automatic = 0
+
+function! TermPDF(status) abort
+  if a:status
+    call system('kitty @ kitten termpdf.py ' .  b:vimtex.root . '/' . b:vimtex.name . '.pdf')
+  endif
+endfunction
+
+function TermPDFClose() abort
+  call system('kitty @ close-window --match title:termpdf')
+endfunction
+
+augroup VimtexTest
+  autocmd!
+  autocmd FileType tex :VimtexCompile
+  autocmd FileType tex :Clean
+  autocmd! User VimtexEventCompileStopped call TermPDFClose()
+augroup end
+" }}}
