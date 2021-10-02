@@ -127,7 +127,8 @@ vnoremap <Tab> <C-p>
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 
 Plug 'mbbill/undotree'
 
@@ -168,6 +169,12 @@ Plug 'junegunn/vim-xmark'
 
 Plug 'vimwiki/vimwiki'
 
+Plug 'posva/vim-vue'
+
+Plug 'leafOfTree/vim-vue-plugin'
+
+Plug 'w0rp/ale'
+
 call plug#end()
 
 
@@ -179,6 +186,14 @@ call plug#end()
 
 " html completion, fuck 485 rn (9/15/19)
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
+" vim vue global enable
+let g:vim_vue_plugin_load_full_syntax = 1
+
+" eslin
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fix_on_save = 1
 
 " Syntastic reccomended settings
 set statusline+=%#warningmsg#
